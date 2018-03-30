@@ -64,7 +64,7 @@ ZSH_THEME="agnoster"
 plugins=(git vi-mode z)
 
 source $ZSH/oh-my-zsh.sh
-source $ZSH/zsh-alias.sh
+source $HOME/.config/zsh/aliases/*
 
 # User configuration
 
