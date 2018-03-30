@@ -96,3 +96,4 @@ source $HOME/.config/zsh/aliases/*
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval $(dircolors ~/.dir_colors/dircolors)
