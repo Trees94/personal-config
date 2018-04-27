@@ -1,0 +1,91 @@
+#+TITLE: Installing new Dev environment.
+* Introduction
+This document, and the surrounding config should provide everything needed to install my dev environment onto a new host. This will help me both install new machines quickly and have a better grip on all the config that I've customized over the years.
+
+* Installation
+** ZSH
+The first thing I probably want is to setup a decent shell environment. The first step is to [[%0A%0Ahttps://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH][install ZSH]]:
+#+BEGIN_SRC sh
+sudo apt-get install zsh
+#+END_SRC
+
+Then make it the default shell. NOTE: On an Amazon managed laptop, this won't work. Check the wiki.
+#+BEGIN_SRC sh
+chsh -s $(which zsh)
+#+END_SRC
+
+Then we install [[%0A%0Ahttps://github.com/robbyrussell/oh-my-zsh][oh-my-zsh]] because it's amazing.
+#+BEGIN_SRC sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#+END_SRC
+That will also run chsh. It will update ~~/.zshrc~, and install itself into ~.oh-my-zsh~.
+
+Now we should get our own config file into place, because it's clearly going to be better. All (public) config files are available from my GitHub repo, so we should pull that in and slap a symlink in place.
+
+#+BEGIN_SRC sh
+git clone https://github.com/Trees94/personal-config.git
+rm ~/.zshrc
+ln -s ~/personal-config/zshrc ~/.zshrc
+mkdir -p ~/.config/zsh/aliases/
+ln -s ~/personal-config/zsh-aliases ~/.config/zsh/aliases/zsh-aliases
+#+END_SRC
+
+Now you can probably tell that your font is borked, so lets fix that next.
+
+#+BEGIN_SRC sh
+cd
+wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+mv PowerlineSymbols.otf ~/.fonts/
+mkdir -p .config/fontconfig/conf.d #if directory doesn't exists
+fc-cache -vf ~/.fonts/
+mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+sudo apt-get install dconf-cli
+#+END_SRC
+END_SRC
+
+Fix terminal colors too.
+#+BEGIN_SRC sh
+git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git ~/.solarized
+cd ~/.solarized
+#+END_SRC
+
+Now we'll install fzf because it's amazeballs.
+#+BEGIN_SRC sh
+cd
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+#+END_SRC
+
+That concludes our ZSH setup, should be pretty solid right now.
+
+** IntelliJ
+We probably want to be able to write some code pretty soon, we I guess we should install IntelliJ so we can be at least a little productive whilst we optimize the crap out of our environment.
+
+#+BEGIN_SRC sh
+cd ~/Downloads/
+wget https://download.jetbrains.com/idea/ideaIC-2017.3.4.tar.gz
+tar -xvzf ideaIC-2017.3.4.tar.gz
+cd
+mkdir programs/
+mv ~/Downloads/idea-IC* ~/programs/idea
+mkdir ~/bin
+ln -s ~/programs/idea/bin/idea.sh ~/bin/idea
+#+END_SRC
+
+
+** Emacs
+Because it rocks.
+#+BEGIN_SRC
+sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt-get update
+sudo apt-get install emacs25
+#+END_SRC
+
+** Spacemacs
+Because it rocks more,
+#+BEGIN_SRC
+cd ~
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#+END_SRC
+Booting emacs is required here, but eh, it'll get done at some point.
