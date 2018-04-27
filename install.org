@@ -87,5 +87,8 @@ Because it rocks more,
 #+BEGIN_SRC
 cd ~
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+emacs
+rm ~/.spacemacs
+ln -s ~/personal-config/spacemacs ~/.spacemacs
+emacs
 #+END_SRC
-Booting emacs is required here, but eh, it'll get done at some point.
