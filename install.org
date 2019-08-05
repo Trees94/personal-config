@@ -92,3 +92,21 @@ rm ~/.spacemacs
 ln -s ~/personal-config/spacemacs ~/.spacemacs
 emacs
 #+END_SRC
+
+** I3
+Because it is the most rocking of all the shizzle so far.
+That depends on some i3 helper scripts that we'll need to install from another workspace.
+#+BEGIN_SRC
+sudo apt install i3
+git clone https://github.com/Trees94/i3-scripts ~/programs/i3-scripts
+cat << EOF > ~/programs/i3-scripts/constants.py
+HOME_DIR="$HOME/"
+SCRIPTS_DIR="$HOME/programs/i3-scripts/"
+EOF
+git clone https://github.com/Trees94/timeTracking.git ~/programs/timeTracking
+mkdir ~/time_tracking
+cat << EOF  > ~/programs/timeTracking/constants.py
+TIME_TRACKING_DIR="$HOME/time_tracking/"
+EOF
+ln -s ~/programs/timeTracking/startWorkOn ~/bin/startWorkOn
+#+END_SRC
